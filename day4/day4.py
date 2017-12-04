@@ -20,19 +20,16 @@ def part_one():
     print count
 
 def part_two():
-    invalid = 0
-    lines = 0
+    count = 0
     with open('input.txt', 'r') as f:
         for line in f.readlines():
             linelist = []
             for word in line.split():
                 linelist.append(''.join(sorted(word)))
             linelist.sort()
-            if len(linelist) != len(set(linelist)):
-                invalid += 1
-            print linelist
-            lines += 1
-    print lines - invalid
+            if len(linelist) == len(set(linelist)):
+                count += 1
+    print count
 
 if __name__ == "__main__":
     # part_one()
