@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import operator, json
+import operator
 def get_data():
     with open('input.txt', 'r') as f:
         data = [s.strip().split() for s in f.readlines()]
