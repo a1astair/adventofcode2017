@@ -42,7 +42,6 @@ def positionstring(xp, yp, zp):
 def part_two():
     data = get_data()
     positions = {}
-    duppos = []
     counter = 0
     # check to see if any particles get within 10 of 0,0,0
     for i in range(len(data)):
@@ -60,7 +59,7 @@ def part_two():
             posStr = positionstring(xp, yp, zp) 
             if posStr in positions and positions[posStr][0] == j:
                 # Found a collision so break
-                duppos.append(i)
+                counter += 1
                 break
             else:
                 positions[posStr] = [j, i] 
@@ -70,8 +69,7 @@ def part_two():
             xp += xv
             yp += yv
             zp += zv
-    
-    print len(data)-len(duppos)
+    print 1000-counter
 if __name__ == "__main__":
     # part_one()
     part_two()

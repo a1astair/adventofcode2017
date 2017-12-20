@@ -6,7 +6,7 @@ input = 329
 def part_one():
     spinlock = [0]
     i, position = 1, 0
-    for i in range(1, 2018):
+    for i in range(1, 2017):
         spinlen = len(spinlock)
         position = (position + input) % spinlen + 1
         spinlock.insert(position, i)
@@ -23,5 +23,5 @@ def part_two():
     print answer
 
 if __name__ == "__main__":
-    # part_one()
-    part_two()
+    part_one()
+    # part_two()
