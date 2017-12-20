@@ -42,6 +42,7 @@ def positionstring(xp, yp, zp):
 def part_two():
     data = get_data()
     positions = {}
+    dupPos = {}
     counter = 0
     # check to see if any particles get within 10 of 0,0,0
     for i in range(len(data)):
@@ -55,11 +56,15 @@ def part_two():
         xa = int(re.search(r"<((-)?\d+),((-)?\d+),((-)?\d+)>", acc).group(1))
         ya = int(re.search(r"<((-)?\d+),((-)?\d+),((-)?\d+)>", acc).group(3))
         za = int(re.search(r"<((-)?\d+),((-)?\d+),((-)?\d+)>", acc).group(5))
-        for j in range(5000):
+        for j in range(1000):
             posStr = positionstring(xp, yp, zp) 
             if posStr in positions and positions[posStr][0] == j:
                 # Found a collision so break
-                counter += 1
+                # This does not account for the original particle that moved to this position
+                if posStr in dupPos:
+                    dupPos[posStr] += 1
+                else:
+                    dupPos[posStr] = 2
                 break
             else:
                 positions[posStr] = [j, i] 
@@ -69,7 +74,10 @@ def part_two():
             xp += xv
             yp += yv
             zp += zv
-    print 1000-counter
+    for val in dupPos:
+        counter += dupPos[val]
+    print dupPos
+    print len(data)-counter
 if __name__ == "__main__":
     # part_one()
     part_two()
