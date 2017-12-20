@@ -8,8 +8,8 @@ def get_data():
 
 def part_one():
     data = get_data()
-    closecount = {}
-    maxdist = 500000
+    partDist = {}
+    t = 1000
     # check to see if any particles get within 10 of 0,0,0
     for i in range(len(data)):
         pos, velo, acc = data[i]
@@ -22,19 +22,12 @@ def part_one():
         xa = int(re.search(r"<((-)?\d+),((-)?\d+),((-)?\d+)>", acc).group(1))
         ya = int(re.search(r"<((-)?\d+),((-)?\d+),((-)?\d+)>", acc).group(3))
         za = int(re.search(r"<((-)?\d+),((-)?\d+),((-)?\d+)>", acc).group(5))
-        closecount[i] = 0
-        for j in range(5000):
-            # print dist
-            dist = abs(xp)+abs(yp)+abs(zp)
-            if (dist <= maxdist):
-                closecount[i] += 1
-            xv += xa
-            yv += ya
-            zv += za
-            xp += xv
-            yp += yv
-            zp += zv
-    print max(closecount.iteritems(), key=operator.itemgetter(1))[0]
+        distX = xp + (xv*t) + (0.5)*(xa)*(t ** 2)
+        distY = yp + (yv*t) + (0.5)*(ya)*(t ** 2)
+        distZ = zp + (zv*t) + (0.5)*(za)*(t ** 2)
+        realDist = abs(distX) + abs(distY) + abs(distZ)
+        partDist[i] = realDist
+    print min(partDist.iteritems(), key=operator.itemgetter(1))[0]
 
 def positionstring(xp, yp, zp):
     return "%s%s%s" % (xp, yp, zp)
@@ -79,5 +72,5 @@ def part_two():
     print dupPos
     print len(data)-counter
 if __name__ == "__main__":
-    # part_one()
-    part_two()
+    part_one()
+    # part_two()
